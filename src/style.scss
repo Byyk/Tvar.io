@@ -2,3 +2,45 @@ body, html {
   margin: 0;
   height: 100%;
 }
+
+#food, #stats {
+  background: #FFFB;
+  position: absolute;
+  top: 0;
+
+  p {
+    font-size: 25px;
+  }
+}
+
+#food {
+  left: 0;
+
+  p {
+    float: left;
+    margin: 10px 23px 10px 0;
+  }
+
+  svg {
+    float: left;
+    height: 20px;
+    width: 20px;
+    margin: 12.5px;
+  }
+}
+
+#stats {
+  right: 0;
+
+  p {
+    float: right;
+    margin: 10px 0 10px 23px;
+  }
+
+  img {
+    float: right;
+    height: 30px;
+    width: 30px;
+    margin: 7.5px;
+  }
+}

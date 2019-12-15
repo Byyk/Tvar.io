@@ -4,6 +4,7 @@
 const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CopyPlugin = require('copy-webpack-plugin');
 
 module.exports = {
     mode: 'development',
@@ -16,7 +17,7 @@ module.exports = {
                 test: /\.tsx?$/,
                 loader: 'ts-loader',
                 exclude: /node_modules/,
-            },
+            }
         ]
     },
     resolve: {
@@ -27,6 +28,9 @@ module.exports = {
         filename: 'index.bundle.js'
     },
     plugins: [
-        new HtmlWebpackPlugin({template: "./src/index.html"})
+        new HtmlWebpackPlugin({template: "./src/index.html"}),
+        new CopyPlugin([
+            {from: './src/resources', to: './static'}
+        ])
     ]
 };
