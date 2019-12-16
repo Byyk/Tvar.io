@@ -7,3 +7,4 @@ import './style.scss';
 
 // spuštění aplikace
 bootstrap();
+// Potřebuji commit, děkuji :D
