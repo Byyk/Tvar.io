@@ -84,7 +84,7 @@ export const bootstrap = (() => {
             x = Math.max(Math.min(x - vector.x * speedMultiplayer, xBound), 0);
             // posun po ose y
             y = Math.max(Math.min(y - vector.y * speedMultiplayer, yBound), 0);
-            // todo: vektory (rychlost pohybu)
+            
         }, 1000 / 30);
     }, document.getElementsByName('body')[0]);
 });

@@ -33,7 +33,7 @@ export class SignalService<T = string> {
                 console.log('game socket connected');
             }).catch(() => {
                 // v případě neúspěch vypíše do console chybu
-                // todo: notifikovat užicatele o chybě
+                // todo: notifikovat uživatele o chybě
                 console.log('game socket connection error');
             });
             // dokončit observable
