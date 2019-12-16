@@ -1,9 +1,9 @@
 // vysvětleni -> index.ts
-import {initServices} from "./services/ServicesModule";
-import {BasicServiceManager} from "./services/BasicServiceManager";
+import P5 = require("p5");
+import Victor = require("victor");
 import {drawGrid} from "./functions/DrawGrid";
-import p5 = require("p5");
-import Victor = require('victor');
+import {BasicServiceManager} from "./services/BasicServiceManager";
+import {initServices} from "./services/ServicesModule";
 
 // funkce bootstrap (inicializace aplikace)
 export const bootstrap = (() => {
@@ -19,10 +19,9 @@ export const bootstrap = (() => {
     const dilek = 50;
     const speedMultiplayer = 6;
 
-    let vector = new Victor(0, 0);
+    const vector = new Victor(0, 0);
 
-    // vytvoření instance p5 (objekt z knihovny p5.js)
-    new p5((p5: p5) => {
+    new P5((p5: P5) => {
 
         // y pozice v areně
         let y = 500;
@@ -37,6 +36,8 @@ export const bootstrap = (() => {
             // barva vykreslování
             p5.stroke(255);
 
+            p5.smooth();
+
             // počet snímku za sekundu (počet volání metody draw za sekundu)
             p5.frameRate(30);
         };
@@ -46,14 +47,14 @@ export const bootstrap = (() => {
             // vykreslení bílého pozadí
             p5.background(0);
             // funkce vykreslující grid (mříšku)
-            p5.stroke(255);
+            p5.stroke(100);
             p5.strokeWeight(1);
             drawGrid(p5, Math.floor(y), Math.floor(x), dilek);
 
             p5.fill(p5.color("#003000"));
             p5.stroke(p5.color("#600000"));
             p5.strokeWeight(10);
-            p5.circle(p5.width / 2, p5.height / 2, 100);
+            p5.circle(Math.floor(p5.width / 2), Math.floor(p5.height / 2), 100);
         };
 
         // even když se změní velikost okna
@@ -63,16 +64,14 @@ export const bootstrap = (() => {
         });
 
         window.addEventListener('keydown', (e: KeyboardEvent) => {
-            if(e.key == "b") stop = !stop;
+            if (e.key == "b") stop = !stop;
         });
 
-
-        let length, angle, xl, yl;
         window.addEventListener('mousemove', (e: MouseEvent) => {
             vector.x = (e.y - window.innerHeight / 2) / (window.innerHeight / 4);
             vector.y = (e.x - window.innerWidth / 2) / (window.innerWidth / 4);
-            if(vector.length() > 1) vector.norm();
-            if(stop) vector.zero();
+            if (vector.length() > 1) vector.norm();
+            if (stop) vector.zero();
         });
 
         const yBound = 3000;

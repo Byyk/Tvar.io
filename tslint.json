@@ -6,7 +6,16 @@
     "jsRules": {},
     "rules": {
         "no-any": false,
-        "no-unsafe-any": false
+        "no-unsafe-any": false,
+        "no-unused-expression": false,
+        "triple-equals": false,
+        "quotemark": false,
+        "curly": false,
+        "one-variable-per-declaration": false,
+        "prefer-const": false,
+        "no-trailing-whitespace": false,
+        "variable-name": false,
+        "trailing-comma": false
     },
     "rulesDirectory": []
 }
