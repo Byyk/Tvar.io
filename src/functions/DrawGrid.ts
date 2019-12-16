@@ -7,6 +7,9 @@ export function drawGrid(p5: p5, beginW: number, beginH: number, dilek: number) 
     // výška (výpočet počátku/posunu)
     let height = beginH % dilek;
 
+    p5.stroke(100);
+    p5.strokeWeight(1);
+
     // dokud je šířka menší než šířka kanvasu (šířka -> pozize x čáry)
     while (width < p5.width) {
         // vykreslení čáry, jako v C# draLine

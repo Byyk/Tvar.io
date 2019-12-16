@@ -4,6 +4,7 @@ import Victor = require("victor");
 import {drawGrid} from "./functions/DrawGrid";
 import {BasicServiceManager} from "./services/BasicServiceManager";
 import {initServices} from "./services/ServicesModule";
+import {Player} from "./Model/player";
 
 // funkce bootstrap (inicializace aplikace)
 export const bootstrap = (() => {
@@ -17,7 +18,7 @@ export const bootstrap = (() => {
     // velikost dílku
     // work in progress
     const dilek = 50;
-    const speedMultiplayer = 6;
+    const speedMultiplayer = 8;
 
     const vector = new Victor(0, 0);
 
@@ -25,9 +26,13 @@ export const bootstrap = (() => {
 
     new P5((p5: P5) => {
 
-        // y pozice v areně
-        let y = 500;
+        const yBound = 3000;
+        const xBound = 3000;
+        const players: Player[] = [];
+
+        let player: Player;
         let x = 500;
+        let y = 500;
         let stop = true;
 
         // funkce setup (volá se na začátku a pouze jednou)
@@ -44,6 +49,15 @@ export const bootstrap = (() => {
             p5.frameRate(30);
 
             image = p5.loadImage('static/skin_test.svg');
+            player = new Player(xBound, yBound,
+                p5.color('#F55'),
+                image, true);
+
+            for (let i = 0; i < 50; i++) {
+                players.push(new Player(xBound, yBound,
+                    p5.color('#F55'),
+                    image));
+            }
         };
 
         // metoda draw, volaná při každém framu, vykresluje
@@ -51,17 +65,11 @@ export const bootstrap = (() => {
             // vykreslení bílého pozadí
             p5.background(0);
             // funkce vykreslující grid (mříšku)
-            p5.stroke(100);
-            p5.strokeWeight(1);
-            drawGrid(p5, Math.floor(y), Math.floor(x), dilek);
-
-            p5.fill(p5.color("#003000"));
-            p5.stroke(p5.color("#600000"));
-            p5.strokeWeight(10);
-            p5.noFill();
-            p5.image(image, window.innerWidth / 2 - 68,
-                window.innerHeight / 2 - 60, 120, 120);
-            p5.circle(Math.floor(p5.width / 2), Math.floor(p5.height / 2), 100);
+            drawGrid(p5, Math.floor(x), Math.floor(y), dilek);
+            player.draw(p5, x, y);
+            for(const p of players) {
+                p.draw(p5, x, y);
+            }
         };
 
         // even když se změní velikost okna
@@ -76,22 +84,18 @@ export const bootstrap = (() => {
         });
 
         window.addEventListener('mousemove', (e: MouseEvent) => {
-            vector.x = (e.y - window.innerHeight / 2) / (window.innerHeight / 4);
-            vector.y = (e.x - window.innerWidth / 2) / (window.innerWidth / 4);
+            vector.x = (e.x - window.innerWidth / 2) / (window.innerWidth / 4);
+            vector.y = (e.y - window.innerHeight / 2) / (window.innerHeight / 4);
             if (vector.length() > 1) vector.norm();
             if (stop) vector.zero();
         });
 
-        const yBound = 3000;
-        const xBound = 3000;
-
         // update loop
         setInterval(() => {
-            // posun po ose x
-            x = Math.max(Math.min(x - vector.x * speedMultiplayer, xBound), 0);
             // posun po ose y
-            y = Math.max(Math.min(y - vector.y * speedMultiplayer, yBound), 0);
-            
+            y = Math.floor(Math.max(Math.min(y - vector.y * speedMultiplayer, yBound), 0));
+            // posun po ose x
+            x = Math.floor(Math.max(Math.min(x - vector.x * speedMultiplayer, xBound), 0));
         }, 1000 / 30);
     }, document.getElementsByName('body')[0]);
 });
