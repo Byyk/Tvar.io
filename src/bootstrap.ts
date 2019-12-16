@@ -21,6 +21,8 @@ export const bootstrap = (() => {
 
     const vector = new Victor(0, 0);
 
+    let image: any;
+
     new P5((p5: P5) => {
 
         // y pozice v areně
@@ -40,6 +42,8 @@ export const bootstrap = (() => {
 
             // počet snímku za sekundu (počet volání metody draw za sekundu)
             p5.frameRate(30);
+
+            image = p5.loadImage('static/skin_test.svg');
         };
 
         // metoda draw, volaná při každém framu, vykresluje
@@ -54,6 +58,9 @@ export const bootstrap = (() => {
             p5.fill(p5.color("#003000"));
             p5.stroke(p5.color("#600000"));
             p5.strokeWeight(10);
+            p5.noFill();
+            p5.image(image, window.innerWidth / 2 - 68,
+                window.innerHeight / 2 - 60, 120, 120);
             p5.circle(Math.floor(p5.width / 2), Math.floor(p5.height / 2), 100);
         };
 
