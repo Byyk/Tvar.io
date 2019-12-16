@@ -65,6 +65,7 @@ export const bootstrap = (() => {
 
         window.addEventListener('keydown', (e: KeyboardEvent) => {
             if (e.key == "b") stop = !stop;
+            if (stop) vector.zero();
         });
 
         window.addEventListener('mousemove', (e: MouseEvent) => {
