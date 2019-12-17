@@ -3,16 +3,17 @@ import P5 = require("p5");
 const foodMass = 13;
 
 export class Food {
+    // @ts-ignore
     x: number;
+    // @ts-ignore
     y: number;
+    // @ts-ignore
     color: P5.Color;
+    // @ts-ignore
     type: FoodType;
 
     constructor(p5: P5, xBound: number, yBound: number) {
-        this.x = Math.random() * xBound;
-        this.y = Math.random() * yBound;
-        this.type = Math.floor(Math.random() * 4);
-        this.color = randomColor(p5);
+        this.reSpawn(p5, xBound, yBound);
     }
 
     draw(p5: P5, screenX: number, screenY: number) {
@@ -32,6 +33,13 @@ export class Food {
         if (this.type == FoodType.triangle)
         p5.triangle(x - foodMass, y + foodMass,
             x + foodMass, y + foodMass, x, y - foodMass);
+    }
+
+    reSpawn(p5: P5, xBound: number, yBound: number) {
+        this.x = Math.random() * xBound;
+        this.y = Math.random() * yBound;
+        this.type = Math.floor(Math.random() * 4);
+        this.color = randomColor(p5);
     }
 
 }

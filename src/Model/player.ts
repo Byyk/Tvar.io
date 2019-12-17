@@ -3,7 +3,7 @@ import P5 = require("p5");
 export class Player {
     x: number;
     y: number;
-    private mass: number;
+    mass: number;
 
     constructor(
         xMax: number,

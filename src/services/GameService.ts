@@ -1,4 +1,4 @@
-import {SignalService} from "./signal.service";
+import {SignalService} from "./SignalService";
 
 // Game Service -> work in progress
 export class GameService {

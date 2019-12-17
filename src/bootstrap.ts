@@ -4,22 +4,18 @@ import Victor = require("victor");
 import {drawGrid} from "./functions/DrawGrid";
 import {Food, FoodType} from "./Model/food";
 import {Player} from "./Model/player";
-import {BasicServiceManager} from "./services/BasicServiceManager";
 import {initServices} from "./services/ServicesModule";
 
 // funkce bootstrap (inicializace aplikace)
 export const bootstrap = (() => {
-    // vytvoření manažera service manažera
-    const serviceManager = new BasicServiceManager();
-
     // inicializace servis
     // Zde jsou vytvářené instance servis, serivisa -> jedináček
-    initServices(serviceManager);
+    const services = initServices();
 
     // velikost dílku
     // work in progress
     const dilek = 50;
-    const speedMultiplayer = 8;
+    const speedMultiplayer = 15;
 
     const vector = new Victor(0, 0);
 
@@ -30,7 +26,7 @@ export const bootstrap = (() => {
         const yBound = 3000;
         const xBound = 3000;
         const players: Player[] = [];
-        const food: Food[] = [];
+        const food: Food[] = services.food_service.food;
 
         let player: Player;
         let x = 800;
@@ -41,30 +37,27 @@ export const bootstrap = (() => {
         p5.setup = () => {
             // vytvoř canvas o velikosti okna
             p5.createCanvas(window.innerWidth, window.innerHeight);
-
             // barva vykreslování
             p5.stroke(255);
-
             p5.smooth();
-
             // počet snímku za sekundu (počet volání metody draw za sekundu)
             p5.frameRate(60);
-
             image = p5.loadImage('static/skin_test.svg');
             player = new Player(xBound, yBound,
                 p5.color('#F55'),
                 image, true);
 
-            for (let i = 0; i < 50; i++) {
+            /*for (let i = 0; i < 50; i++) {
                 players.push(new Player(xBound, yBound,
                     p5.color('#F55'),
                     image));
-            }
+            }*/
             players.push(player);
-
-            for (let i = 0; i < 100; i++) {
-                food.push(new Food(p5, xBound, yBound));
-            }
+            services.food_service.init(p5, xBound, yBound);
+            /*const foo = new Food(p5, 100,100);
+            foo.x = 800;
+            foo.y = 800;
+            food.push(foo);*/
         };
 
         // metoda draw, volaná při každém framu, vykresluje
@@ -112,6 +105,11 @@ export const bootstrap = (() => {
                 x - vector.x * speedMultiplayer,
                 xBound + window.innerWidth / 2),
                 window.innerWidth / 2));
+
+            if (services.food_service.checkFoodIntersection(
+                x - window.innerWidth / 2,
+                y - window.innerHeight / 2,
+                player.mass)) console.log('dotek!');
         }, 1000 / 30);
     }, document.getElementsByName('body')[0]);
 });
