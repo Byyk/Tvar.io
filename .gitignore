@@ -3,5 +3,5 @@ node_modules
 Server/.vs
 **/bin
 **/*.cache
-
+Server/wwwroot
 

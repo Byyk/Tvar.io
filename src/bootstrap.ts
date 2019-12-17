@@ -33,8 +33,8 @@ export const bootstrap = (() => {
         const food: Food[] = [];
 
         let player: Player;
-        let x = 500;
-        let y = 500;
+        let x = 800;
+        let y = 800;
         let stop = true;
 
         // funkce setup (volá se na začátku a pouze jednou)
@@ -104,10 +104,14 @@ export const bootstrap = (() => {
         setInterval(() => {
             // posun po ose y
             y = Math.floor(Math.max(Math.min(
-                y - vector.y * speedMultiplayer, yBound), 0));
+                y - vector.y * speedMultiplayer,
+                yBound + window.innerWidth / 2),
+                window.innerHeight / 2));
             // posun po ose x
             x = Math.floor(Math.max(Math.min(
-                x - vector.x * speedMultiplayer, xBound), 0));
+                x - vector.x * speedMultiplayer,
+                xBound + window.innerWidth / 2),
+                window.innerWidth / 2));
         }, 1000 / 30);
     }, document.getElementsByName('body')[0]);
 });
