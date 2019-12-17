@@ -15,7 +15,11 @@
         "prefer-const": false,
         "no-trailing-whitespace": false,
         "variable-name": false,
-        "trailing-comma": false
+        "trailing-comma": false,
+        "no-console": false,
+        "member-access": false,
+        "object-literal-sort-keys": false,
+        "prefer-for-of": false
     },
     "rulesDirectory": []
 }

@@ -1,7 +1,7 @@
-import * as p5 from "p5";
+import * as P5 from "p5";
 
 // vykreslení gridu
-export function drawGrid(p5: p5, beginW: number, beginH: number, dilek: number) {
+export function drawGrid(p5: P5, beginW: number, beginH: number, dilek: number) {
     // šířka (výpočet počátku/posunu)
     let width = beginW % dilek;
     // výška (výpočet počátku/posunu)

@@ -35,3 +35,4 @@ C:\Users\Škola\Documents\GitHub\Tvar.io\Server\Server\obj\Debug\netcoreapp3.0\S
 C:\Users\Škola\Documents\GitHub\Tvar.io\Server\Server\obj\Debug\netcoreapp3.0\Server.pdb
 C:\Users\Petr\Documents\GitHub\Tvar.io\Server\Server\obj\Debug\netcoreapp3.0\Server.dll
 C:\Users\Petr\Documents\GitHub\Tvar.io\Server\Server\obj\Debug\netcoreapp3.0\Server.pdb
+C:\Users\Škola\Documents\GitHub\Tvar.io\Server\Server\obj\Debug\netcoreapp3.0\Server.csprojAssemblyReference.cache

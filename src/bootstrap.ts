@@ -2,9 +2,10 @@
 import P5 = require("p5");
 import Victor = require("victor");
 import {drawGrid} from "./functions/DrawGrid";
+import {Food, FoodType} from "./Model/food";
+import {Player} from "./Model/player";
 import {BasicServiceManager} from "./services/BasicServiceManager";
 import {initServices} from "./services/ServicesModule";
-import {Player} from "./Model/player";
 
 // funkce bootstrap (inicializace aplikace)
 export const bootstrap = (() => {
@@ -29,6 +30,7 @@ export const bootstrap = (() => {
         const yBound = 3000;
         const xBound = 3000;
         const players: Player[] = [];
+        const food: Food[] = [];
 
         let player: Player;
         let x = 500;
@@ -46,7 +48,7 @@ export const bootstrap = (() => {
             p5.smooth();
 
             // počet snímku za sekundu (počet volání metody draw za sekundu)
-            p5.frameRate(30);
+            p5.frameRate(60);
 
             image = p5.loadImage('static/skin_test.svg');
             player = new Player(xBound, yBound,
@@ -58,6 +60,11 @@ export const bootstrap = (() => {
                     p5.color('#F55'),
                     image));
             }
+            players.push(player);
+
+            for (let i = 0; i < 100; i++) {
+                food.push(new Food(p5, xBound, yBound));
+            }
         };
 
         // metoda draw, volaná při každém framu, vykresluje
@@ -66,9 +73,12 @@ export const bootstrap = (() => {
             p5.background(0);
             // funkce vykreslující grid (mříšku)
             drawGrid(p5, Math.floor(x), Math.floor(y), dilek);
-            player.draw(p5, x, y);
-            for(const p of players) {
-                p.draw(p5, x, y);
+            for (let i = 0; i < food.length; i++) {
+                food[i].draw(p5, x, y);
+            }
+
+            for (let i = 0; i < players.length; i++) {
+                players[i].draw(p5, x, y);
             }
         };
 
@@ -93,9 +103,11 @@ export const bootstrap = (() => {
         // update loop
         setInterval(() => {
             // posun po ose y
-            y = Math.floor(Math.max(Math.min(y - vector.y * speedMultiplayer, yBound), 0));
+            y = Math.floor(Math.max(Math.min(
+                y - vector.y * speedMultiplayer, yBound), 0));
             // posun po ose x
-            x = Math.floor(Math.max(Math.min(x - vector.x * speedMultiplayer, xBound), 0));
+            x = Math.floor(Math.max(Math.min(
+                x - vector.x * speedMultiplayer, xBound), 0));
         }, 1000 / 30);
     }, document.getElementsByName('body')[0]);
 });
