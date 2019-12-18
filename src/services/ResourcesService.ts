@@ -1,3 +1,5 @@
+import { FoodType } from "../Model/food";
+
 export class ResourcesService {
     private triangles: number = 0;
     private triElement: HTMLParagraphElement;
@@ -15,6 +17,24 @@ export class ResourcesService {
         this.cirElement.innerText = value.toString();
     }
 
+    get rects() {
+        return this.rectangles;
+    }
+
+    set rects(value: number) {
+        this.rectangles = value;
+        this.recElement.innerText = value.toString();
+    }
+
+    get trian() {
+        return this.triangles;
+    }
+
+    set trian(value: number) {
+        this.triangles = value;
+        this.triElement.innerText = value.toString();
+    }
+
     constructor() {
         this.triElement = document.getElementById('tria-count') as HTMLParagraphElement;
         this.cirElement = document.getElementById('circ-count') as HTMLParagraphElement;
@@ -25,7 +45,17 @@ export class ResourcesService {
         this.recElement.innerText = "0";
     }
 
-    addTriangles(tri: number) {
-
+    addResource(res: { type: FoodType, mass: number}) { console.log(res.type);
+        switch(res.type - 1) {
+            case FoodType.circle: 
+                this.circs += res.mass;
+                break;
+            case FoodType.rectangle:
+                this.rects += res.mass;
+                break;
+            case FoodType.triangle:
+                this.trian += res.mass;
+                break;
+        }
     }
 }

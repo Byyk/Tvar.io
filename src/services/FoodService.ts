@@ -25,9 +25,12 @@ export class FoodService {
             if(GetPointDistance(x, y, this.food[i].x, this.food[i].y) <= mass)
             {
                 this.food[i].reSpawn(this.p5!, this.xBound!, this.yBound!);
-                return true;
+                return {
+                    type: this.food[i].type,
+                    mass: this.food[i].mass
+                };
             }
         }
-        return false;
+        return null;
     }
 }

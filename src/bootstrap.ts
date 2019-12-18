@@ -106,10 +106,12 @@ export const bootstrap = (() => {
                 xBound + window.innerWidth / 2),
                 window.innerWidth / 2));
 
-            if (services.food_service.checkFoodIntersection(
-                x - window.innerWidth / 2,
-                y - window.innerHeight / 2,
-                player.mass)) console.log('dotek!');
+            const jidlo = services.food_service.checkFoodIntersection(x - window.innerWidth / 2,
+                y - window.innerHeight / 2, player.mass);
+            if (jidlo != null) {
+                services.resource_service.addResource(jidlo);
+            }
+
         }, 1000 / 30);
     }, document.getElementsByName('body')[0]);
 });
