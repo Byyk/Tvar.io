@@ -38,7 +38,7 @@ export class Food {
     reSpawn(p5: P5, xBound: number, yBound: number) {
         this.x = Math.random() * xBound;
         this.y = Math.random() * yBound;
-        this.type = Math.floor(Math.random() * 4);
+        this.type = Math.floor(Math.random() * 3);
         this.color = randomColor(p5);
     }
 

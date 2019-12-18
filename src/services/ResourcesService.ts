@@ -45,8 +45,8 @@ export class ResourcesService {
         this.recElement.innerText = "0";
     }
 
-    addResource(res: { type: FoodType, mass: number}) { console.log(res.type);
-        switch(res.type - 1) {
+    addResource(res: { type: FoodType, mass: number}) {
+        switch (res.type) {
             case FoodType.circle: 
                 this.circs += res.mass;
                 break;
