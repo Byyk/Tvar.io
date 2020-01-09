@@ -38,7 +38,7 @@ export class Food {
 
     reSpawn(p5: P5, xBound: number, yBound: number) {
         this.x = Math.random() * xBound;
-        this.y = Math.random() * yBound;
+        this.y = Math.random() * (yBound + 350);
         const rand = Math.random() * 100;
         if (rand < 10) this.type = FoodType.triangle;
         if (rand < 15 && rand >= 10) this.type = FoodType.rectangle;

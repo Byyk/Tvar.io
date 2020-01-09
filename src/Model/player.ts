@@ -26,7 +26,6 @@ export class Player {
 
         // fixme redudantni volaní!
 
-        if (x < 0 || y < 0) console.log('kurva');
 
         p5.strokeWeight(10);
         p5.stroke(this.strokeColor);
