@@ -1,18 +1,15 @@
-import {Food} from "../Model/food";
 import P5 = require("p5");
 import {GetPointDistance} from "../functions/PointDistance";
-
-
+import {Food} from "../Model/food";
 
 export class FoodService {
     food: Food[] = [];
     xBound: number | undefined;
     yBound: number | undefined;
     p5: P5 | undefined;
-    constructor() {}
 
     init(p5: P5, xBound: number, yBound: number) {
-        for (let i = 0; i < 300; i++) {
+        for (let i = 0; i < 500; i++) {
             this.food.push(new Food(p5, xBound, yBound));
         }
         this.xBound = xBound;

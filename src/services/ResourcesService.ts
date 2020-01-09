@@ -1,60 +1,67 @@
 import { FoodType } from "../Model/food";
+import {Player} from "../Model/player";
 
 export class ResourcesService {
-    private triangles: number = 0;
     private triElement: HTMLParagraphElement;
-    private rectangles: number = 0;
+    private rectangles: number = 1;
     private recElement: HTMLParagraphElement;
-    private circles: number = 0;
+    private circles: number = 30;
     private cirElement: HTMLParagraphElement;
 
-    get circs() {
-        return this.circles;
-    }
+    // @ts-ignore
+    private player: Player;
 
     set circs(value: number) {
-        this.circles = value;
-        this.cirElement.innerText = value.toString();
-    }
-
-    get rects() {
-        return this.rectangles;
+        this.circles += value;
+        this.cirElement.innerText = this.circles.toString();
+        this.player.mass = this.circles;
     }
 
     set rects(value: number) {
-        this.rectangles = value;
-        this.recElement.innerText = value.toString();
+        this.rectangles += value;
+        this.recElement.innerText = (Math.floor(this.rectangles * 100) / 100).toString();
     }
 
-    get trian() {
-        return this.triangles;
+    set speedMinus(value: number) {
+        if (this.rectangles - value > 0.5)
+            this.rectangles -= value;
+        else this.rectangles = 0.5;
+        this.recElement.innerText = (Math.floor(this.rectangles * 100) / 100).toString();
     }
 
     set trian(value: number) {
-        this.triangles = value;
-        this.triElement.innerText = value.toString();
+        if (this.circles - value > 30)
+            this.circles -= value;
+        else this.circles = 30;
+        this.triElement.innerText = this.circles.toString();
+        this.player.mass = this.circles;
     }
 
     constructor() {
-        this.triElement = document.getElementById('tria-count') as HTMLParagraphElement;
-        this.cirElement = document.getElementById('circ-count') as HTMLParagraphElement;
-        this.recElement = document.getElementById('rect-count') as HTMLParagraphElement;
+        this.triElement = document.getElementById('mass-level') as HTMLParagraphElement;
+        this.cirElement = document.getElementById('mass-level') as HTMLParagraphElement;
+        this.recElement = document.getElementById('speed-level') as HTMLParagraphElement;
 
-        this.cirElement.innerText = "0";
-        this.triElement.innerText = "0";
-        this.recElement.innerText = "0";
+        this.cirElement.innerText = "30";
+        this.recElement.innerText = "1";
+    }
+
+    init(player: Player) {
+        this.player = player;
     }
 
     addResource(res: { type: FoodType, mass: number}) {
         switch (res.type) {
             case FoodType.circle: 
-                this.circs += res.mass;
+                this.circs = res.mass;
+                this.speedMinus = res.mass / 1000;
                 break;
             case FoodType.rectangle:
-                this.rects += res.mass;
+                this.rects = res.mass / 1000;
                 break;
             case FoodType.triangle:
-                this.trian += res.mass;
+                this.trian = res.mass;
+                this.rects = res.mass / 1000;
                 break;
         }
     }

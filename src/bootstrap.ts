@@ -54,6 +54,7 @@ export const bootstrap = (() => {
             }*/
             players.push(player);
             services.food_service.init(p5, xBound, yBound);
+            services.resource_service.init(player);
             /*const foo = new Food(p5, 100,100);
             foo.x = 800;
             foo.y = 800;
@@ -106,8 +107,10 @@ export const bootstrap = (() => {
                 xBound + window.innerWidth / 2),
                 window.innerWidth / 2));
 
-            const jidlo = services.food_service.checkFoodIntersection(x - window.innerWidth / 2,
-                y - window.innerHeight / 2, player.mass);
+            let jidlo;
+            if (player != null)
+                jidlo = services.food_service.checkFoodIntersection(x - window.innerWidth / 2,
+                    y - window.innerHeight / 2, player.mass);
             if (jidlo != null) {
                 services.resource_service.addResource(jidlo);
             }

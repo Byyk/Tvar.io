@@ -14,7 +14,7 @@ export class Player {
     ) {
         this.x = Math.random() * xMax;
         this.y = Math.random() * yMax;
-        this.mass = 50;
+        this.mass = 30;
     }
 
     draw(p5: P5, screenX: number, screenY: number) {

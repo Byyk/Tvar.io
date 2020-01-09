@@ -1,7 +1,7 @@
-import {SignalService} from "./SignalService";
+import {FoodService} from "./FoodService";
 import {GameService} from "./GameService";
 import {ResourcesService} from "./ResourcesService";
-import {FoodService} from "./FoodService";
+import {SignalService} from "./SignalService";
 
 // názvy servis z třídy SegnalSerice (bude jich více)
 // zatím neřešit
