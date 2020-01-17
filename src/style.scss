@@ -35,7 +35,6 @@ body, html {
  height: 100%; 
  padding-top: 100px;
  box-sizing: border-box;
- background-image: url(https://neosmart.net/wiki/wp-content/uploads/sites/5/2014/06/0x000000EA.png);
 }
 
 #foot{
@@ -46,8 +45,6 @@ body, html {
 }
 #loginCont{
   background-color: rgba(190,190,190, 0.3);
-  opacity: 0.5;
-  filter: Alpha(opacity=50);
 }
 
 #stats {
@@ -64,4 +61,13 @@ body, html {
     width: 30px;
     margin: 7.5px;
   }
+}
+
+#login-background {
+  position: fixed;
+  z-index: -1;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
 }

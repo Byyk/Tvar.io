@@ -9,7 +9,7 @@ const userName = '';
 const {connection, connected} = ConnectHub();
 connected.subscribe(() => {
 
-    let joined = true;
+    let joined = false;
 
     connected.subscribe(() => {
         if (!joined) fetch('game.html').then((data) => {
