@@ -7,14 +7,17 @@ import {ConnectHub} from "./functions/HubConnection";
 import './style.scss';
 const userName = '';
 const {connection, connected} = ConnectHub();
-
 connected.subscribe(() => {
-    if (false) fetch('game.html').then((data) => {
-        data.text().then((text) => {
-            document.getElementsByTagName('body')[0].innerHTML = text;
+
+    let joined = false;
+
+    connected.subscribe(() => {
+        if (!joined) fetch('game.html').then((data) => {
+            data.text().then((text) => {
+                document.getElementsByTagName('body')[0].innerHTML = text;
+            });
         });
+
+        if (joined) bootstrap();
     });
-
-    if (true) bootstrap();
 });
-
