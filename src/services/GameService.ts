@@ -1,8 +1,6 @@
-import {SignalService} from "./SignalService";
-
 // Game Service -> work in progress
 export class GameService {
-    constructor(private signal: SignalService) {
+    constructor(private signal: any) {
 
     }
 

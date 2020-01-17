@@ -5,10 +5,12 @@ import {drawGrid} from "./functions/DrawGrid";
 import {Food, FoodType} from "./Model/food";
 import {Player} from "./Model/player";
 import {initServices} from "./services/ServicesModule";
+import * as ts from "typescript/lib/tsserverlibrary";
+import maxProgramSizeForNonTsFiles = ts.server.maxProgramSizeForNonTsFiles;
 
 // funkce bootstrap (inicializace aplikace)
 export const bootstrap = (() => {
-    document.getElementById('stats')!.style.display = 'block';
+    createStats();
     // inicializace servis
     // Zde jsou vytvářené instance servis, serivisa -> jedináček
     const services = initServices();
@@ -119,3 +121,26 @@ export const bootstrap = (() => {
         }, 1000 / 30);
     }, document.getElementsByName('body')[0]);
 });
+
+function createStats() {
+    const stats = document.createElement('div');
+    stats.id = "stats";
+    const statsInnerConatiner = document.createElement('div');
+    const image = document.createElement('img');
+    image.src = '/static/radius.png';
+    statsInnerConatiner.appendChild(image);
+    const massLevel = document.createElement('p');
+    massLevel.id = 'mass-level';
+    statsInnerConatiner.appendChild(massLevel);
+    stats.appendChild(statsInnerConatiner);
+
+    const speedLevelContainer = document.createElement('div');
+    const speedLevel = document.createElement('img');
+    speedLevel.src = '/static/flash.png';
+    speedLevelContainer.appendChild(speedLevel);
+    const speedLevelP = document.createElement('p');
+    speedLevelP.id = 'speed-level';
+    speedLevelContainer.appendChild(speedLevelP);
+    stats.appendChild(speedLevelContainer);
+    document.getElementsByTagName('body')[0].appendChild(stats);
+}
