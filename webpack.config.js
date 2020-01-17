@@ -30,7 +30,8 @@ module.exports = {
     plugins: [
         new HtmlWebpackPlugin({template: "./src/index.html"}),
         new CopyPlugin([
-            {from: './src/resources', to: './static'}
+            {from: './src/resources', to: './static'},
+            {from: './src/game.html', to: './'}
         ])
     ]
 };
