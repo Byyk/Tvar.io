@@ -9,12 +9,12 @@ const userName = '';
 const {connection, connected} = ConnectHub();
 
 connected.subscribe(() => {
-    if (false) fetch('game.html').then((data) => {
+    if (true) fetch('game.html').then((data) => {
         data.text().then((text) => {
             document.getElementsByTagName('body')[0].innerHTML = text;
         });
     });
 
-    if (true) bootstrap();
+    if (false) bootstrap();
 });
 

@@ -31,6 +31,25 @@ body, html {
   }
 }
 
+#wrapper{
+ height: 100%; 
+ padding-top: 100px;
+ box-sizing: border-box;
+ background-image: url(https://neosmart.net/wiki/wp-content/uploads/sites/5/2014/06/0x000000EA.png);
+}
+
+#foot{
+  position: fixed;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+#loginCont{
+  background-color: rgba(190,190,190, 0.3);
+  opacity: 0.5;
+  filter: Alpha(opacity=50);
+}
+
 #stats {
   right: 0;
 
