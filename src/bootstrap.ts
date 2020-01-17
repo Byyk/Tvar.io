@@ -8,6 +8,7 @@ import {initServices} from "./services/ServicesModule";
 
 // funkce bootstrap (inicializace aplikace)
 export const bootstrap = (() => {
+    document.getElementById('stats')!.style.display = 'block';
     // inicializace servis
     // Zde jsou vytvářené instance servis, serivisa -> jedináček
     const services = initServices();

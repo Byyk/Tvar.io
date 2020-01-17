@@ -4,43 +4,18 @@ import {shareReplay} from "rxjs/operators";
 
 // class SignalService
 export class SignalService<T = string> {
-    // připojení na web socket
-    private connection: signalR.HubConnection;
 
     // stav připojení work in progress -> je třeba zajit aby emitnul false
     // v případě ztráty připojení
     public connected: Observable<boolean>;
+    // připojení na web socket
+    private connection: signalR.HubConnection;
 
     // konstruktor třídy
     // hubAddress -> adresa hubu na backendu (hub -> websocket)
     constructor(hubAddress: string) {
 
-        // připojení na websocket
-        this.connection = new signalR.HubConnectionBuilder()
-            .withUrl(hubAddress).build();
 
-        // Observable -> jako eventy v C#
-        // metoda subsribe spustí observable a observable zavolá callback při
-        // každé změně hodnoty
-        this.connected = new Observable<boolean>(subscriber => {
-            // emitni false
-            subscriber.next(false);
-
-            // otevření spojení
-            this.connection.start().then(() => {
-                // v případě úspěchu emitne true
-                subscriber.next(true);
-                console.log('game socket connected');
-            }).catch(() => {
-                // v případě neúspěch vypíše do console chybu
-                // todo: notifikovat uživatele o chybě
-                console.log('game socket connection error');
-            });
-            // dokončit observable
-            subscriber.complete();
-            // metoda pipe upravuje observable
-            // share replay zajišťuje aby se code v observablu nevolal více krát (při každém zavolání subscribe)
-        }).pipe(shareReplay());
     }
 
     // subsribe na websocket
