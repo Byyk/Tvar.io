@@ -3,6 +3,7 @@ import {Observable} from "rxjs";
 import {shareReplay} from "rxjs/operators";
 
 export const ConnectHub = () => {
+    const hubAddress = '/game';
     const connection = new signalR.HubConnectionBuilder()
         .withUrl(hubAddress).build();
 
