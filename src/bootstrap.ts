@@ -50,11 +50,11 @@ export const bootstrap = (() => {
                 p5.color('#F55'),
                 image, true);
 
-            /*for (let i = 0; i < 50; i++) {
+            for (let i = 0; i < 50; i++) {
                 players.push(new Player(xBound, yBound,
                     p5.color('#F55'),
                     image));
-            }*/
+            }
             players.push(player);
             services.food_service.init(p5, xBound, yBound);
             services.resource_service.init(player);

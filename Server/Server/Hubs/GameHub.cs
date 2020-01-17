@@ -8,7 +8,6 @@ namespace Server.Hubs
 {
   public class GameHub : Hub
   {
-
     public async Task JoinRoom(string roomName)
     {
       await Groups.AddToGroupAsync(Context.ConnectionId, roomName);
