@@ -31,6 +31,23 @@ body, html {
   }
 }
 
+#wrapper{
+ height: 100%; 
+ padding-top: 100px;
+ box-sizing: border-box;
+}
+
+#foot{
+  position: fixed;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: rgb(190,190,190);
+  width: 100%;
+}
+#loginCont{
+  background-color: rgba(190,190,190, 0.3);
+}
+
 #stats {
   right: 0;
 
@@ -45,4 +62,19 @@ body, html {
     width: 30px;
     margin: 7.5px;
   }
+}
+
+#login-background {
+  position: fixed;
+  z-index: -1;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  height: 100%;
+  width: 100%;
+  background-size: cover;
+}
+#page{
+ 
 }
