@@ -58,10 +58,6 @@ export const bootstrap = (() => {
             players.push(player);
             services.food_service.init(p5, xBound, yBound);
             services.resource_service.init(player);
-            /*const foo = new Food(p5, 100,100);
-            foo.x = 800;
-            foo.y = 800;
-            food.push(foo);*/
         };
 
         // metoda draw, volaná při každém framu, vykresluje
@@ -73,7 +69,6 @@ export const bootstrap = (() => {
             for (let i = 0; i < food.length; i++) {
                 food[i].draw(p5, x, y);
             }
-
             for (let i = 0; i < players.length; i++) {
                 players[i].draw(p5, x, y);
             }
@@ -84,12 +79,11 @@ export const bootstrap = (() => {
             // nastavení velikosti canvasu na velikost okna
             p5.resizeCanvas(window.innerWidth, window.innerHeight, false);
         });
-
         window.addEventListener('keydown', (e: KeyboardEvent) => {
             if (e.key == "b") stop = !stop;
+            if (e.key === 'Escape') p5.remove();
             if (stop) vector.zero();
         });
-
         window.addEventListener('mousemove', (e: MouseEvent) => {
             vector.x = (e.x - window.innerWidth / 2) / (window.innerWidth / 4);
             vector.y = (e.y - window.innerHeight / 2) / (window.innerHeight / 4);

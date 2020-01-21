@@ -9,20 +9,18 @@ export const ConnectHub = () => {
 
     const connected = new Observable<boolean>((subscriber) => {
         // emitni false
-        subscriber.next(false);
-
         // otevření spojení
         connection.start().then(() => {
             // v případě úspěchu emitne true
             subscriber.next(true);
             console.log('game socket connected');
+            subscriber.complete();
         }).catch(() => {
             // v případě neúspěch vypíše do console chybu
             // todo: notifikovat uživatele o chybě
             console.log('game socket connection error');
         });
         // dokončit observable
-        subscriber.complete();
         // metoda pipe upravuje observable
         // share replay zajišťuje aby se code v observablu nevolal více krát (při každém zavolání subscribe)
     }).pipe(shareReplay());

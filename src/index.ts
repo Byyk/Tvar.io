@@ -14,20 +14,31 @@ const {connection, connected} = ConnectHub();
 connected.subscribe(() => {
     let joined = new BehaviorSubject(false);
 
-    joined.subscribe((val) => {
-        connected.subscribe(() => {
-            if (!val) fetch('game.html').then((data) => {
-                data.text().then((text) => {
-                    document.getElementsByTagName('body')[0].innerHTML = text;
-                    document.getElementById('btnLogin')!.addEventListener('click', () => {
-                        joined.next(true);
-                        document.getElementById('page')!.remove();
-                    });
-                    backgroundBalls();
-                });
-            });
 
-            if (val) bootstrap();
-        }); 
-    });
+        connected.subscribe((conn) => {
+            console.log(conn);
+            if (!conn) return;
+            joined.subscribe((val) => {
+                if (!val) fetch('game.html').then((data) => {
+                    data.text().then((text) => {
+                        document.getElementsByTagName('body')[0].innerText = '';
+                        document.getElementsByTagName('body')[0].innerHTML = text;
+                        document.getElementById('btnLogin')!.addEventListener('click', () => {
+                            joined.next(true);
+                            document.getElementById('page')!.remove();
+                        });
+                        backgroundBalls();
+                        connection.send('JoinRoom', 'room').then();
+                    });
+                });
+
+                if (val) bootstrap();
+            });
+        });
+
+    window.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+            joined.next(false);
+        }
+    })
 });
