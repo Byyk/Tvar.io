@@ -1,4 +1,5 @@
-@import "~bootstrap/dist/css/bootstrap.min.css";
+@import "bootstrap.min.css";
+@import "~rippler/dist/css/rippler.min.css";
 
 body, html {
   margin: 0;
@@ -41,11 +42,18 @@ body, html {
   position: fixed;
   left: 50%;
   transform: translateX(-50%);
-  background-color: rgb(190,190,190);
+  background-color: rgba(190, 190, 190, 0.8);
   width: 100%;
+  bottom: 0;
 }
+
 #loginCont{
-  background-color: rgba(190,190,190, 0.3);
+  background-color: rgba(190,190,190, 0.8);
+  padding: 28px;
+  flex: 0 0 300px;
+  max-width: none;
+  border-radius: 28px;
+  zoom: 125%;
 }
 
 #stats {
@@ -75,6 +83,14 @@ body, html {
   width: 100%;
   background-size: cover;
 }
+
 #page{
- 
+ height: 100%;
+}
+
+#defaultCanvas0 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
 }
