@@ -28,13 +28,15 @@ export const bootstrap = ((connection: HubConnection) => {
     new P5((p5: P5) => {
 
         const yBound = 3000;
-        const xBound = 3000;
+        const xBound = 5000;
         const players: Player[] = [];
         const food: Food[] = services.food_service.food;
 
         let player: Player;
         let x = 800;
         let y = 800;
+        let scale = 2.0;
+        const prevDisplaySize = {width: window.innerWidth, height: window.innerHeight};
         let stop = true;
 
         // funkce setup (volá se na začátku a pouze jednou)
@@ -66,12 +68,12 @@ export const bootstrap = ((connection: HubConnection) => {
             // vykreslení bílého pozadí
             p5.background(0);
             // funkce vykreslující grid (mříšku)
-            drawGrid(p5, Math.floor(x), Math.floor(y), dilek);
+            drawGrid(p5, Math.floor(x), Math.floor(y), dilek, scale);
             for (let i = 0; i < food.length; i++) {
-                food[i].draw(p5, x, y);
+                food[i].draw(p5, Math.floor(x), Math.floor(y));
             }
             for (let i = 0; i < players.length; i++) {
-                players[i].draw(p5, x, y);
+                players[i].draw(p5, Math.floor(x), Math.floor(y));
             }
         };
 
@@ -91,6 +93,12 @@ export const bootstrap = ((connection: HubConnection) => {
             if (vector.length() > 1) vector.norm();
             if (stop) vector.zero();
         });
+        window.addEventListener('resize', () => {
+           x += (window.innerWidth - prevDisplaySize.width) / 2;
+           y += (window.innerHeight - prevDisplaySize.height) / 2;
+           prevDisplaySize.width = window.innerWidth;
+           prevDisplaySize.height = window.innerHeight;
+        });
 
         // update loop
         setInterval(() => {
@@ -105,14 +113,14 @@ export const bootstrap = ((connection: HubConnection) => {
                 xBound + window.innerWidth / 2),
                 window.innerWidth / 2));
 
-            let jidlo;
+            let jidlo: any[] = [];
             if (player != null)
                 jidlo = services.food_service.checkFoodIntersection(x - window.innerWidth / 2,
                     y - window.innerHeight / 2, player.mass);
-            if (jidlo != null) {
+            if (jidlo?.length != 0) {
                 services.resource_service.addResource(jidlo);
             }
-            connection.send('');
+            connection.send('').then();
 
         }, 1000 / 30);
     }, document.getElementsByName('body')[0]);

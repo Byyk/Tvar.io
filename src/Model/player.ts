@@ -18,15 +18,13 @@ export class Player {
     }
 
     draw(p5: P5, screenX: number, screenY: number) {
-        const x = !this.fixed ? screenX - this.x : Math.floor(p5.width / 2);
-        const y = !this.fixed ? screenY - this.y : Math.floor(p5.height / 2);
+        const x = Math.floor(!this.fixed ? screenX - this.x : p5.width / 2);
+        const y = Math.floor(!this.fixed ? screenY - this.y : p5.height / 2);
 
         if (x + this.mass < 0 || y + this.mass < 0 || x - this.mass > p5.width || y - this.mass > p5.height)
             return null;
 
         // fixme redudantni volaní!
-
-
         p5.strokeWeight(10);
         p5.stroke(this.strokeColor);
         if (this.fill instanceof P5.Color) p5.fill(this.fill);
