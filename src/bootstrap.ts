@@ -53,6 +53,10 @@ export const bootstrap = ((connection: HubConnection) => {
                 p5.color('#F55'),
                 image, true);
 
+            setInterval(() => {
+                console.log(x,y);
+            }, 500);
+
             for (let i = 0; i < 50; i++) {
                 players.push(new Player(xBound, yBound,
                     p5.color('#F55'),
@@ -70,10 +74,10 @@ export const bootstrap = ((connection: HubConnection) => {
             // funkce vykreslující grid (mříšku)
             drawGrid(p5, Math.floor(x), Math.floor(y), dilek, scale);
             for (let i = 0; i < food.length; i++) {
-                food[i].draw(p5, Math.floor(x), Math.floor(y));
+                food[i].draw(p5, Math.floor(x), Math.floor(y), scale);
             }
             for (let i = 0; i < players.length; i++) {
-                players[i].draw(p5, Math.floor(x), Math.floor(y));
+                players[i].draw(p5, Math.floor(x), Math.floor(y), scale);
             }
         };
 
@@ -105,18 +109,18 @@ export const bootstrap = ((connection: HubConnection) => {
             // posun po ose y
             y = Math.floor(Math.max(Math.min(
                 y - vector.y * speedMultiplayer,
-                yBound + window.innerWidth / 2),
-                window.innerHeight / 2));
+                yBound + window.innerHeight / (2 * scale) + player.mass / (2 / scale)),
+                window.innerHeight / (2 * scale) - player.mass / (2 / scale)));
             // posun po ose x
             x = Math.floor(Math.max(Math.min(
                 x - vector.x * speedMultiplayer,
-                xBound + window.innerWidth / 2),
-                window.innerWidth / 2));
+                xBound + window.innerWidth / (2 * scale) + player.mass / (2 / scale)),
+                window.innerWidth / (2 * scale) - player.mass / (2 / scale)));
 
             let jidlo: any[] = [];
             if (player != null)
-                jidlo = services.food_service.checkFoodIntersection(x - window.innerWidth / 2,
-                    y - window.innerHeight / 2, player.mass);
+                jidlo = services.food_service.checkFoodIntersection(x - window.innerWidth / (2 * scale),
+                    y - window.innerHeight / (2 * scale), player.mass);
             if (jidlo?.length != 0) {
                 services.resource_service.addResource(jidlo);
             }

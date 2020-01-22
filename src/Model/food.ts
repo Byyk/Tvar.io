@@ -21,10 +21,10 @@ export class Food {
         this.pulseUp = true;
     }
 
-    draw(p5: P5, screenX: number, screenY: number) {
-        const x = screenX - this.x;
-        const y = screenY - this.y;
-        const mass = (this.mass * 26) + this.pulse / 10;
+    draw(p5: P5, screenX: number, screenY: number, scale: number) {
+        const x = Math.floor((screenX - this.x) * scale);
+        const y = Math.floor((screenY - this.y) * scale);
+        const mass = Math.floor(((this.mass * 26) + this.pulse / 10) * scale);
         if (this.pulseUp) this.pulse++;
         else this.pulse--;
 
@@ -48,7 +48,7 @@ export class Food {
 
     reSpawn(p5: P5, xBound: number, yBound: number) {
         this.x = Math.random() * xBound;
-        this.y = Math.random() * (yBound + 350);
+        this.y = Math.random() * yBound;
         const rand = Math.random() * 100;
         if (rand < 10) this.type = FoodType.triangle;
         if (rand < 15 && rand >= 10) this.type = FoodType.rectangle;
