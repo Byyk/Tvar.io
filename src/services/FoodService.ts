@@ -18,16 +18,16 @@ export class FoodService {
     }
 
     checkFoodIntersection(x: number, y: number, mass: number) {
+        const ret = [];
         for (let i = 0; i < this.food.length; i++) {
             if (GetPointDistance(x, y, this.food[i].x, this.food[i].y) <= mass) {
-                const ret = {
+                ret.push({
                     type: this.food[i].type,
                     mass: this.food[i].mass
-                };
+                });
                 this.food[i].reSpawn(this.p5!, this.xBound!, this.yBound!);
-                return ret;
             }
         }
-        return null;
+        return ret;
     }
 }

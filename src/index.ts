@@ -13,11 +13,13 @@ const userName = '';
 const {connection, connected} = ConnectHub();
 connected.subscribe(() => {
     let joined = new BehaviorSubject(false);
-
-
-        connected.subscribe((conn) => {
+    connected.subscribe((conn) => {
             console.log(conn);
             if (!conn) return;
+            connection.on('Send', (text) => {
+               console.log(text);
+            });
+
             joined.subscribe((val) => {
                 if (!val) fetch('game.html').then((data) => {
                     data.text().then((text) => {
@@ -25,6 +27,8 @@ connected.subscribe(() => {
                         document.getElementsByTagName('body')[0].innerHTML = text;
                         document.getElementById('btnLogin')!.addEventListener('click', () => {
                             joined.next(true);
+                            connection.send('JoinRandomRoom',
+                                (document.getElementById('userName') as HTMLInputElement)!.value).then();
                             document.getElementById('page')!.remove();
                         });
                         backgroundBalls();
@@ -32,7 +36,7 @@ connected.subscribe(() => {
                     });
                 });
 
-                if (val) bootstrap();
+                if (val) bootstrap(connection);
             });
         });
 
@@ -40,5 +44,5 @@ connected.subscribe(() => {
         if (e.key === 'Escape') {
             joined.next(false);
         }
-    })
+    });
 });

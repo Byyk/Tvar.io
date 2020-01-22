@@ -1,15 +1,16 @@
 // vysvětleni -> index.ts
+import maxProgramSizeForNonTsFiles = ts.server.maxProgramSizeForNonTsFiles;
+import {HubConnection} from "@microsoft/signalr";
 import P5 = require("p5");
+import * as ts from "typescript/lib/tsserverlibrary";
 import Victor = require("victor");
 import {drawGrid} from "./functions/DrawGrid";
-import {Food, FoodType} from "./Model/food";
+import {Food} from "./Model/food";
 import {Player} from "./Model/player";
 import {initServices} from "./services/ServicesModule";
-import * as ts from "typescript/lib/tsserverlibrary";
-import maxProgramSizeForNonTsFiles = ts.server.maxProgramSizeForNonTsFiles;
 
 // funkce bootstrap (inicializace aplikace)
-export const bootstrap = (() => {
+export const bootstrap = ((connection: HubConnection) => {
     createStats();
     // inicializace servis
     // Zde jsou vytvářené instance servis, serivisa -> jedináček
@@ -111,6 +112,7 @@ export const bootstrap = (() => {
             if (jidlo != null) {
                 services.resource_service.addResource(jidlo);
             }
+            connection.send('');
 
         }, 1000 / 30);
     }, document.getElementsByName('body')[0]);

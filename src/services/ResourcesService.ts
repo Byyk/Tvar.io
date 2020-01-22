@@ -1,4 +1,4 @@
-import { FoodType } from "../Model/food";
+import {FoodType} from "../Model/food";
 import {Player} from "../Model/player";
 
 export class ResourcesService {
@@ -13,27 +13,27 @@ export class ResourcesService {
 
     set circs(value: number) {
         this.circles += value;
-        this.cirElement.innerText = this.circles.toString();
+        this.cirElement.innerText = removeUnvantedDecimalPlaces(this.circles).toString();
         this.player.mass = this.circles;
     }
 
     set rects(value: number) {
         this.rectangles += value;
-        this.recElement.innerText = (Math.floor(this.rectangles * 100) / 100).toString();
+        this.recElement.innerText = removeUnvantedDecimalPlaces(Math.floor(this.rectangles * 100) / 100).toString();
     }
 
     set speedMinus(value: number) {
         if (this.rectangles - value > 0.5)
             this.rectangles -= value;
         else this.rectangles = 0.5;
-        this.recElement.innerText = (Math.floor(this.rectangles * 100) / 100).toString();
+        this.recElement.innerText = removeUnvantedDecimalPlaces(Math.floor(this.rectangles * 100) / 100).toString();
     }
 
     set trian(value: number) {
         if (this.circles - value > 30)
             this.circles -= value;
         else this.circles = 30;
-        this.triElement.innerText = this.circles.toString();
+        this.triElement.innerText = removeUnvantedDecimalPlaces(this.circles).toString();
         this.player.mass = this.circles;
     }
 
@@ -50,19 +50,26 @@ export class ResourcesService {
         this.player = player;
     }
 
-    addResource(res: { type: FoodType, mass: number}) {
-        switch (res.type) {
-            case FoodType.circle: 
-                this.circs = res.mass;
-                this.speedMinus = res.mass / 1000;
-                break;
-            case FoodType.rectangle:
-                this.rects = res.mass / 1000;
-                break;
-            case FoodType.triangle:
-                this.trian = res.mass;
-                this.rects = res.mass / 1000;
-                break;
+    addResource(res: Array<{ type: FoodType, mass: number }>) {
+        // tslint:disable-next-line:forin
+        for (let jidlo of res) {
+            switch (jidlo.type) {
+                case FoodType.circle:
+                    this.circs = jidlo.mass;
+                    this.speedMinus = jidlo.mass / 1000;
+                    break;
+                case FoodType.rectangle:
+                    this.rects = jidlo.mass / 1000;
+                    break;
+                case FoodType.triangle:
+                    this.trian = jidlo.mass;
+                    this.rects = jidlo.mass / 1000;
+                    break;
+            }
         }
     }
+}
+
+function removeUnvantedDecimalPlaces(num: number) {
+    return Math.round(Math.floor(num * 100) / 10) / 10;
 }

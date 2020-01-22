@@ -10,16 +10,26 @@ export class Food {
     // @ts-ignore
     type: FoodType;
 
+    pulse: number;
+    pulseUp: boolean;
+
     mass = 0.5;
 
     constructor(p5: P5, xBound: number, yBound: number) {
         this.reSpawn(p5, xBound, yBound);
+        this.pulse = 0;
+        this.pulseUp = true;
     }
 
     draw(p5: P5, screenX: number, screenY: number) {
         const x = screenX - this.x;
         const y = screenY - this.y;
-        const mass = this.mass * 26;
+        const mass = (this.mass * 26) + this.pulse / 10;
+        if (this.pulseUp) this.pulse++;
+        else this.pulse--;
+
+        if (this.pulse == 20) this.pulseUp = false;
+        if (this.pulse == 0) this.pulseUp = true;
 
         if (x + mass < 0 || y + mass < 0 || x - mass > p5.width || y - mass > p5.height)
             return null;
@@ -30,7 +40,7 @@ export class Food {
         if (this.type == FoodType.circle)
             p5.circle(Math.floor(x), Math.floor(y), 2 * mass);
         if (this.type == FoodType.rectangle)
-            p5.rect(x, y, 2 * mass, 2 * mass);
+            p5.rect(x - mass / 2, y - mass / 2, 2 * mass, 2 * mass);
         if (this.type == FoodType.triangle)
         p5.triangle(x - mass, y + mass,
             x + mass, y + mass, x, y - mass);
@@ -43,6 +53,7 @@ export class Food {
         if (rand < 10) this.type = FoodType.triangle;
         if (rand < 15 && rand >= 10) this.type = FoodType.rectangle;
         if (rand >= 15) this.type = FoodType.circle;
+        this.mass = Math.floor((Math.random() * 0.1 + 0.4) * 10) / 10;
 
         this.color = randomColor(p5);
     }
