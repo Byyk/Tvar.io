@@ -52,11 +52,6 @@ export const bootstrap = ((connection: HubConnection) => {
             player = new Player(xBound, yBound,
                 p5.color('#F55'),
                 image, true);
-
-            setInterval(() => {
-                console.log(x,y);
-            }, 500);
-
             for (let i = 0; i < 50; i++) {
                 players.push(new Player(xBound, yBound,
                     p5.color('#F55'),
@@ -89,6 +84,15 @@ export const bootstrap = ((connection: HubConnection) => {
         window.addEventListener('keydown', (e: KeyboardEvent) => {
             if (e.key == "b") stop = !stop;
             if (e.key === 'Escape') p5.remove();
+            const prevskale = scale;
+            if (e.key === 'z') scale -= 0.1;
+            if (e.key === 'u') scale += 0.1;
+            if (e.key === 'u' || e.key === 'z') {
+                x += (window.innerWidth - window.innerWidth * ()) / 2;
+                y += (window.innerHeight - prevDisplaySize.height) / (2 * scale);
+                prevDisplaySize.width = window.innerWidth;
+                prevDisplaySize.height = window.innerHeight;
+            }
             if (stop) vector.zero();
         });
         window.addEventListener('mousemove', (e: MouseEvent) => {
@@ -98,8 +102,8 @@ export const bootstrap = ((connection: HubConnection) => {
             if (stop) vector.zero();
         });
         window.addEventListener('resize', () => {
-           x += (window.innerWidth - prevDisplaySize.width) / 2;
-           y += (window.innerHeight - prevDisplaySize.height) / 2;
+           x += (window.innerWidth - prevDisplaySize.width) / (2 * scale);
+           y += (window.innerHeight - prevDisplaySize.height) / (2 * scale);
            prevDisplaySize.width = window.innerWidth;
            prevDisplaySize.height = window.innerHeight;
         });

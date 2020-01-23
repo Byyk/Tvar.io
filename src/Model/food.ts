@@ -17,18 +17,18 @@ export class Food {
 
     constructor(p5: P5, xBound: number, yBound: number) {
         this.reSpawn(p5, xBound, yBound);
-        this.pulse = 0;
+        this.pulse = Math.floor(Math.random() * 15);
         this.pulseUp = true;
     }
 
     draw(p5: P5, screenX: number, screenY: number, scale: number) {
         const x = Math.floor((screenX - this.x) * scale);
         const y = Math.floor((screenY - this.y) * scale);
-        const mass = Math.floor(((this.mass * 26) + this.pulse / 10) * scale);
+        const mass = Math.floor(((this.mass * 26) + this.pulse / 5) * scale);
         if (this.pulseUp) this.pulse++;
         else this.pulse--;
 
-        if (this.pulse == 20) this.pulseUp = false;
+        if (this.pulse == 15) this.pulseUp = false;
         if (this.pulse == 0) this.pulseUp = true;
 
         if (x + mass < 0 || y + mass < 0 || x - mass > p5.width || y - mass > p5.height)
@@ -53,7 +53,7 @@ export class Food {
         if (rand < 10) this.type = FoodType.triangle;
         if (rand < 15 && rand >= 10) this.type = FoodType.rectangle;
         if (rand >= 15) this.type = FoodType.circle;
-        this.mass = Math.floor((Math.random() * 0.1 + 0.4) * 10) / 10;
+        this.mass = Math.floor((Math.random() * 0.15 + 0.35) * 10) / 10;
 
         this.color = randomColor(p5);
     }

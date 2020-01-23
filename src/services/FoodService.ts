@@ -9,13 +9,9 @@ export class FoodService {
     p5: P5 | undefined;
 
     init(p5: P5, xBound: number, yBound: number) {
-        for (let i = 0; i < 500; i++) {
+        for (let i = 0; i < 1000; i++) {
             this.food.push(new Food(p5, xBound, yBound));
         }
-        const foo = new Food(p5, xBound, yBound);
-        foo.x = 0;
-        foo.y = 0;
-        this.food.push(foo);
         this.xBound = xBound;
         this.yBound = yBound;
         this.p5 = p5;
