@@ -88,7 +88,7 @@ export const bootstrap = ((connection: HubConnection) => {
             if (e.key === 'z') scale -= 0.1;
             if (e.key === 'u') scale += 0.1;
             if (e.key === 'u' || e.key === 'z') {
-                x += (window.innerWidth - window.innerWidth * ()) / 2;
+                x += (window.innerWidth - window.innerWidth) / (2 * scale);
                 y += (window.innerHeight - prevDisplaySize.height) / (2 * scale);
                 prevDisplaySize.width = window.innerWidth;
                 prevDisplaySize.height = window.innerHeight;
