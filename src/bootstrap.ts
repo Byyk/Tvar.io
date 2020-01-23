@@ -84,14 +84,13 @@ export const bootstrap = ((connection: HubConnection) => {
         window.addEventListener('keydown', (e: KeyboardEvent) => {
             if (e.key == "b") stop = !stop;
             if (e.key === 'Escape') p5.remove();
-            const prevskale = scale;
-            if (e.key === 'z') scale -= 0.1;
-            if (e.key === 'u') scale += 0.1;
+            const prevScale = scale;
+            if (e.key === 'z') scale -= 0.2;
+            if (e.key === 'u') scale += 0.2;
             if (e.key === 'u' || e.key === 'z') {
-                x += (window.innerWidth - window.innerWidth) / (2 * scale);
-                y += (window.innerHeight - prevDisplaySize.height) / (2 * scale);
-                prevDisplaySize.width = window.innerWidth;
-                prevDisplaySize.height = window.innerHeight;
+                x += Math.floor((window.innerWidth * prevScale - window.innerWidth * scale) / (prevScale * scale * 2));
+                y += Math.floor((window.innerHeight * prevScale - window.innerHeight * scale) / (prevScale * scale * 2));
+                console.log(Math.floor((window.innerHeight * prevScale - window.innerHeight * scale) / (prevScale * scale * 2)));
             }
             if (stop) vector.zero();
         });
